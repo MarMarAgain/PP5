@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'workshop_static/css/workshop_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+   <main class="main-content">
+       <div class="container">
+           <section class="other-workshops">
+               <h1 class="section-title">Workshops</h1>
+               <div class="workshop-list">
+                   {% for workshop in workshops %}
+                       <div class="workshop-item">
+                           {% if workshop.image %}
+                               <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" class="workshop-thumb">
+                           {% else %}
+                               <p>No Image Available</p>
+                           {% endif %}
+                           <a href="{% url 'workshop_detail' workshop_id=workshop.id %}" class="workshop-name">{{ workshop.title }}</a>
+                           <p class="workshop-category">{{ workshop.category }}</p>
+                           <p class="workshop-price">€{{ workshop.price }}</p>
+                       </div>
+                   {% endfor %}
+               </div>
+           </section>
+       </div>
+   </main>
+  {% endblock %}
+
+

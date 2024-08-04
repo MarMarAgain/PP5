@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Masterworks{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <header class="header container">
+        <img src="{% static 'project images/black logo.svg' %}" alt="Ocean Of Notions Logo" class="logo">
+        <nav class="nav">
+            <button class="burger-menu">
+                <span class="burger-icon"></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="{% url 'landing_page' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            
+            
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'edit_profile' %}" class="nav-link">Profile</a></li>
+                    <li><a href="{% url 'cart' %}" class="nav-link">Cart</a></li>
+                    <li><a href="{% url 'logout' %}" class="nav-link login">Log out</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="nav-link login">Log in</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+    
+    <footer class="footer" id="contact">
+        <div class="container footer-section">
+            <div class="footer-contact">
+                <h2>Contact</h2>
+                <div class="footer-contact-items">
+                    <p>Email: <a href="mailto:oceanofnotions@gmail.com">oceanofnotions@gmail.com</a></p>
+                    <p>Phone: 021 123 4567</p>
+                    <p>Address: 09876, T12 NNJK</p>
+                </div>
+                <p>Masterworks is a subsidiary of Oceans Of Notions Theatre Company</p>
+            </div>
+            
+            <div class="footer-social ml-auto">
+                
+                <a href="https://www.facebook.com/p/The-Ocean-of-Notions-Theatre-Company-100057310396028/" target="_blank">
+                   <i class="fab fa-facebook-f fa-2x"></i>
+                </a>
+                
+                <a href="https://www.linkedin.com/" target="_blank">
+                   <i class="fab fa-linkedin-in fa-2x"></i>
+               </a>
+                
+                <a href="https://www.youtube.com/" target="_blank">
+                  <i class="fab fa-youtube fa-2x"></i>
+              </a>
+                
+                <a href="https://www.instagram.com/oceanofnotionsproductions/?hl=zh-cn&ref=159" target="_blank"><i class="fab fa-instagram fa-2x"></i>
+              </a>
+
+            </div>
+            
+        </div>
+    </footer>
+
+    <script src="{% static 'js/nav.js' %}"></script>
+</body>
+</html>
+
+
+
